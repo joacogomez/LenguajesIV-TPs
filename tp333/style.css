@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+  background-color: #f5f5f5;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 320px;
+}
+
+.panel-arriba {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.panel-abajo {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  min-height: 150px;
+}
+
+#nombreArchivo {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 3px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+#pesoArchivo {
+  font-size: 13px;
+  color: #777;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+#vistaPrevia {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  display: none;
+}

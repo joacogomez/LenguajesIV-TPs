@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LENGUAJES IV · Trabajos Prácticos</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-hover: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #eef2ff;
+      --muted: #96a0bc;
+      --accent: #6c8cff;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 600px at 12% -10%, rgba(108, 140, 255, 0.16), transparent 60%),
+        radial-gradient(800px 500px at 95% 0%, rgba(167, 108, 255, 0.13), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 24px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      padding: 72px 0 56px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 12px #4ade80;
+    }
+
+    h1 {
+      margin-top: 24px;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      font-weight: 800;
+    }
+
+    h1 .grad {
+      background: linear-gradient(100deg, #8aa4ff 0%, #b18cff 50%, #ff9ad5 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      margin-top: 18px;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: clamp(0.98rem, 2vw, 1.1rem);
+    }
+
+    .meta {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .meta span {
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: #c3cbe4;
+      font-size: 13px;
+    }
+
+    /* ---------- Sections ---------- */
+    section {
+      padding-bottom: 56px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+      font-weight: 700;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ---------- Cards ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 26px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      top: -70px;
+      right: -70px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.08;
+      filter: blur(10px);
+      transition: opacity 0.25s ease, transform 0.35s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: var(--surface-hover);
+      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover::after {
+      opacity: 0.16;
+      transform: scale(1.15);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .tp-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 46px;
+      padding: 0 12px;
+      border-radius: 13px;
+      background: color-mix(in srgb, var(--accent) 16%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      font-size: 1.18rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14.5px;
+      flex-grow: 1;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 18px;
+    }
+
+    .chips span {
+      padding: 4px 9px;
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #b8c1da;
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 22px;
+      padding: 11px 16px;
+      border-radius: 11px;
+      background: var(--accent);
+      color: #0a0f1e;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: filter 0.2s ease, transform 0.2s ease;
+    }
+
+    .card-link:hover {
+      filter: brightness(1.12);
+      transform: translateX(2px);
+    }
+
+    .card-link svg {
+      transition: transform 0.2s ease;
+    }
+
+    .card-link:hover svg {
+      transform: translateX(3px);
+    }
+
+    .note {
+      margin-top: 10px;
+      color: #7f89a5;
+      font-size: 11.5px;
+      text-align: center;
+    }
+
+    /* ---------- PDFs ---------- */
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .pdf-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 15px 17px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .pdf-item:hover {
+      background: var(--surface-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .pdf-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 92, 92, 0.12);
+      color: #ff8a8a;
+    }
+
+    .pdf-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .pdf-item small {
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #c3cbe4;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0 18px;
+      }
+
+      header {
+        padding: 48px 0 40px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <header>
+      <span class="eyebrow"><span class="dot"></span>Lenguajes IV</span>
+      <h1>Trabajos <span class="grad">Prácticos</span></h1>
+      <p class="subtitle">
+        Página de inicio con todos los trabajos prácticos de la materia. Elegí una tarjeta para abrir el proyecto.
+      </p>
+      <div class="meta">
+        <span>Joaquín Gómez Burgos</span>
+        <span>3.° año · 2.° cuatrimestre</span>
+        <span>5 entregas</span>
+      </div>
+    </header>
+
+    <section id="trabajos">
+      <div class="section-head">
+        <h2>Proyectos</h2>
+        <p>TP1 a TP5 · HTML, CSS y JavaScript</p>
+      </div>
+
+      <div class="grid">
+
+        <!-- TP1 -->
+        <article class="card" style="--accent: #6c8cff;">
+          <div class="card-top">
+            <span class="tp-number">TP1</span>
+            <span class="tag">HTML · CSS · JS</span>
+          </div>
+          <h3>Ubicación</h3>
+          <p>
+            Formulario para ingresar un nombre, latitud y longitud. Al enviarlo abre la ubicación en Google Maps.
+          </p>
+          <div class="chips">
+            <span>Formulario</span>
+            <span>Google Maps</span>
+          </div>
+          <a class="card-link" href="TP1_LENGIV/index.html">
+            Abrir TP1
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- TP2 -->
+        <article class="card" style="--accent: #4ade80;">
+          <div class="card-top">
+            <span class="tp-number">TP2</span>
+            <span class="tag">Leaflet</span>
+          </div>
+          <h3>Historial de Recorrido</h3>
+          <p>
+            Mapa interactivo que registra las posiciones del usuario: iniciar y detener seguimiento, historial y limpieza.
+          </p>
+          <div class="chips">
+            <span>Geolocalización</span>
+            <span>Mapas</span>
+          </div>
+          <a class="card-link" href="TP2_GomezBurgosJ/index.html">
+            Abrir TP2
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- TP3 -->
+        <article class="card" style="--accent: #fbbf24;">
+          <div class="card-top">
+            <span class="tp-number">TP3</span>
+            <span class="tag">File API</span>
+          </div>
+          <h3>Subir Imagen</h3>
+          <p>
+            Selección de archivos de imagen con vista previa, mostrando el nombre y el peso del archivo elegido.
+          </p>
+          <div class="chips">
+            <span>Input file</span>
+            <span>Vista previa</span>
+          </div>
+          <a class="card-link" href="tp333/index.html">
+            Abrir TP3
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- TP4 -->
+        <article class="card" style="--accent: #f472b6;">
+          <div class="card-top">
+            <span class="tp-number">TP4</span>
+            <span class="tag">Blobs</span>
+          </div>
+          <h3>Uso de Blobs</h3>
+          <p>
+            Creación de blobs de texto, descarga de archivos y manipulación de contenido con el método slice().
+          </p>
+          <div class="chips">
+            <span>Blob API</span>
+            <span>Descargas</span>
+          </div>
+          <a class="card-link" href="tp4/index.html">
+            Abrir TP4
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </article>
+
+        <!-- TP5 -->
+        <article class="card" style="--accent: #61dafb;">
+          <div class="card-top">
+            <span class="tp-number">TP5</span>
+            <span class="tag">React</span>
+          </div>
+          <h3>App React</h3>
+          <p>
+            Aplicación multipágina con React Router: inicio, proyecto Blob, about us y contacto.
+          </p>
+          <div class="chips">
+            <span>React</span>
+            <span>Router</span>
+          </div>
+          <a class="card-link" href="miprimerreact/miapp/build/index.html">
+            Abrir TP5
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+          <span class="note">Si no carga, ejecutar <strong>npm start</strong> en miprimerreact/miapp</span>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="documentacion">
+      <div class="section-head">
+        <h2>Documentación</h2>
+        <p>Enunciados y entregas en PDF</p>
+      </div>
+
+      <div class="pdf-grid">
+
+        <a class="pdf-item" href="pdf/TP1_GomezBurgosJ.pdf" target="_blank" rel="noopener">
+          <span class="pdf-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <span>
+            <strong>TP1 · Ubicación</strong>
+            <small>PDF</small>
+          </span>
+        </a>
+
+        <a class="pdf-item" href="pdf/TP2_GomezBurgos.pdf" target="_blank" rel="noopener">
+          <span class="pdf-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <span>
+            <strong>TP2 · Recorrido</strong>
+            <small>PDF</small>
+          </span>
+        </a>
+
+        <a class="pdf-item" href="pdf/TP3_GomezBurgosJ.pdf" target="_blank" rel="noopener">
+          <span class="pdf-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <span>
+            <strong>TP3 · Files</strong>
+            <small>PDF</small>
+          </span>
+        </a>
+
+        <a class="pdf-item" href="pdf/TP4_GomezBurgosJ.pdf" target="_blank" rel="noopener">
+          <span class="pdf-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <span>
+            <strong>TP4 · Blobs</strong>
+            <small>PDF</small>
+          </span>
+        </a>
+
+        <a class="pdf-item" href="pdf/TP5React-GomezBurgos.pdf" target="_blank" rel="noopener">
+          <span class="pdf-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <span>
+            <strong>TP5 · React</strong>
+            <small>PDF</small>
+          </span>
+        </a>
+
+        <a class="pdf-item" href="pdf/TP6-GomezBurgosJ.pdf" target="_blank" rel="noopener">
+          <span class="pdf-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <span>
+            <strong>TP6</strong>
+            <small>PDF</small>
+          </span>
+        </a>
+
+        <a class="pdf-item" href="pdf/TP7-GomezBurgosJ.pdf" target="_blank" rel="noopener">
+          <span class="pdf-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <path d="M14 2v6h6"/>
+            </svg>
+          </span>
+          <span>
+            <strong>TP7</strong>
+            <small>PDF</small>
+          </span>
+        </a>
+
+      </div>
+    </section>
+
+    <footer>
+      <span><strong>Lenguajes IV</strong> · Trabajos Prácticos</span>
+      <span>Joaquín Gómez Burgos · 2026</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>

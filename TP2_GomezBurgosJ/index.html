@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>TP2-LENG4</title>
+
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Historial de Recorrido</h2>
+
+  <div id="mapa"></div>
+
+  <div class="botones">
+    <button onclick="iniciarSeguimiento()">Iniciar Seguimiento</button>
+    <button onclick="detenerSeguimiento()">Detener Seguimiento</button>
+    <button onclick="limpiarHistorial()">Limpiar Historial</button>
+  </div>
+
+  <h3>Historial de Posiciones</h3>
+  <ul id="listaHistorial"></ul>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>

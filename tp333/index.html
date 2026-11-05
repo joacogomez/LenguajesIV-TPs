@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>TP3 - Files</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Subir Imagen</h2>
+
+  <div class="contenedor">
+
+    <div class="panel-arriba">
+      <input type="file" id="inputImagen" accept=".png, .jpg, .jpeg" onchange="mostrarImagen()">
+    </div>
+
+    <div class="panel-abajo">
+      <p id="nombreArchivo"></p>
+      <p id="pesoArchivo"></p>
+      <img id="vistaPrevia" src="" alt="">
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
